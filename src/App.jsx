@@ -1,35 +1,81 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import Services from './components/Services';
+import Works from './components/Works';
+import About from './components/About';
+import FloatingImages from './components/FloatingImages';
+import BubbleMenu from './components/BubbleMenu';
+import Contact from './components/Contact';
+import ScrollStack, { ScrollStackItem } from './components/ScrollStack';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeSection, setActiveSection] = useState('home');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['home', 'services', 'works', 'about'];
+      const scrollPosition = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const offsetTop = element.offsetTop;
+          const offsetBottom = offsetTop + element.offsetHeight;
+
+          if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="min-h-screen bg-gray-200 font-quicksand">
+      <Header />
+      
+      <main>
+        <ScrollStack>
+          {/* Home Section */}
+          <ScrollStackItem>
+            <section id="home" className="h-screen">
+              <Hero />
+              <FloatingImages />
+            </section>
+          </ScrollStackItem>
+          
+          {/* Services Section */}
+          <ScrollStackItem>
+            <section id="services" className="h-screen">
+              <Services />
+            </section>
+          </ScrollStackItem>
+          
+          {/* Works Section */}
+          <ScrollStackItem>
+            <section id="works" className="h-screen">
+              <Works />
+            </section>
+          </ScrollStackItem>
+          
+          {/* About Section */}
+          <ScrollStackItem>
+            <section id="about" className="h-screen">
+              <About />
+              <Contact />
+            </section>
+          </ScrollStackItem>
+        </ScrollStack>
+      </main>
+
+      <BubbleMenu />
+    </div>
+  );
 }
 
-export default App
+export default App;
