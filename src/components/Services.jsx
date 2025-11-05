@@ -40,17 +40,17 @@ const Services = () => {
   return (
     <section id="services" className="min-h-screen bg-black text-white py-16 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
-        {/* What I Do Header */}
-        <div className="mb-16 border-b border-gray-800 pb-8">
+      {/* What I Do Header */}
+        <div className="mb-24 border-b border-gray-800 pb-12">
           <h1 className="text-5xl md:text-7xl font-light tracking-tight">
-            What I Do /
+            My Experience/
           </h1>
         </div>
 
         {/* Services List */}
         <div className="space-y-0">
           {services.map((service, index) => (
-            <div key={index} className="grid grid-cols-12 gap-8 items-start border-t border-gray-800 py-16">
+            <div key={index} className="grid grid-cols-12 gap-8 items-start py-20">
               {/* Left: Number */}
               <div className="col-span-12 md:col-span-2">
                 <span className="text-5xl md:text-6xl font-light text-gray-600">
@@ -61,28 +61,28 @@ const Services = () => {
               {/* Right: Content */}
               <div className="col-span-12 md:col-span-10">
                 {/* Title */}
-                <h2 className="text-4xl md:text-6xl font-light mb-4 tracking-tight">
+                <h2 className="text-4xl md:text-6xl font-light mb-6 tracking-tight">
                   {service.title}
                 </h2>
                 
                 {service.subtitle && (
-                  <h3 className="text-3xl md:text-5xl font-light mb-8 tracking-tight">
+                  <h3 className="text-3xl md:text-5xl font-light mb-10 tracking-tight">
                     {service.subtitle}
                   </h3>
                 )}
 
                 {/* Description */}
-                <p className="text-base md:text-lg text-gray-400 max-w-3xl leading-relaxed mb-8">
+                <p className="text-base md:text-lg text-gray-400 max-w-3xl leading-relaxed mb-12">
                   {service.description}
                 </p>
 
                 {/* Details */}
-                <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm md:text-base text-gray-500">
+                <div className="space-y-6 text-sm md:text-base text-gray-500">
                   {service.details.map((detail, idx) => (
-                    <span key={idx} className="flex items-center">
-                      <span className="mr-2">{String(idx + 1).padStart(2, '0')}</span>
+                    <div key={idx} className="flex items-start gap-4">
+                      <span className="text-gray-600 min-w-[2rem]">{String(idx + 1).padStart(2, '0')}</span>
                       <span>{detail}</span>
-                    </span>
+                    </div>
                   ))}
                 </div>
               </div>
